@@ -25,12 +25,6 @@ public interface PaneInterface {
 			g.drawLine(7, ((int)(getR().vars.size()/2+getR().vars.size()%2))*20, bufferedImage.getWidth() - 7, ((int)(getR().vars.size()/2+getR().vars.size()%2))*20);
 			g.drawLine(((int)(getR().vars.size()/2))*10 +8, 7,((int)(getR().vars.size()/2))*10 +8, bufferedImage.getHeight() - 5);
 		}
-		
-		
-		
-
-		
-
 		for (int i = 0; i < txt.length; i++)
 			g.drawString(txt[i], 10, 15 + (i * 20));
 		return bufferedImage;
