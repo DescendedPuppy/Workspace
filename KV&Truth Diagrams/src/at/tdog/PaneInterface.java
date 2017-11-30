@@ -15,27 +15,23 @@ public interface PaneInterface {
 				BufferedImage.TYPE_INT_RGB);
 		Graphics g = bufferedImage.getGraphics();
 		g.setColor(Color.WHITE);
-		
-		
+		g.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
+		g.setColor(Color.BLACK);
 		if(this instanceof Truthtable)
-			g.fillRect(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight());
+			g.drawLine(7, 17, bufferedImage.getWidth() - 7, 17);
 		else
 		{
-			int i=0;
-			String line ="";
-			while(getR().vars.parallelStream().anyMatch((line = txt[i])::contains))
-			{
-				
-			}
+			txt[0] = " "+txt[0];
+			g.drawLine(7, ((int)(getR().vars.size()/2+getR().vars.size()%2))*20, bufferedImage.getWidth() - 7, ((int)(getR().vars.size()/2+getR().vars.size()%2))*20);
+			g.drawLine(((int)(getR().vars.size()/2))*10 +8, 7,((int)(getR().vars.size()/2))*10 +8, bufferedImage.getHeight() - 5);
 		}
 		
 		
-		g.setColor(Color.BLACK);
+		
 
-		g.drawString(txt[0], 10, 15);
-		g.drawLine(7, 17, bufferedImage.getWidth() - 7, 17);
+		
 
-		for (int i = 1; i < txt.length; i++)
+		for (int i = 0; i < txt.length; i++)
 			g.drawString(txt[i], 10, 15 + (i * 20));
 		return bufferedImage;
 	}

@@ -3,10 +3,6 @@ package at.tdog;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -21,9 +17,11 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -35,17 +33,34 @@ public class GUI extends Application {
 
 	public Truthtable truth;
 	public KVDiagram diagram;
-	public Dialog<Object> loading;
+	public Dialog<Object> loading,exportPane;
 	private TextField input;
 	private TabPane tabPane;
 	private final ContextMenu cm = new ContextMenu();
+	private ToggleGroup exportGroup;
 
 	@Override
 	public void start(Stage prim) throws Exception {
+		MenuItem export = new MenuItem("Export");
+		MenuItem copy = new MenuItem("Copy");
 		
-
-		MenuItem export = new MenuItem("Copy");
+		exportPane = new Dialog();
+		DialogPane pain = new DialogPane();
+		exportPane.setDialogPane(pain);
+		
+		exportGroup = new ToggleGroup();
+	    RadioButton button1 = new RadioButton("Export to File");
+	    button1.setToggleGroup(exportGroup);
+	    button1.setSelected(true);
+	    RadioButton button2 = new RadioButton("Export to Clipboard");
+	    button2.setToggleGroup(exportGroup);
+		
 		export.setOnAction(e->{
+			
+			exportPane.show();
+			
+			
+			/*
 			Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
 			clpbrd.setContents(new StringSelection(tabPane.getTabs().get(tabPane.getSelectionModel().getSelectedIndex()).getContent().toString()), null);
 			try {
@@ -55,6 +70,12 @@ public class GUI extends Application {
 				e1.printStackTrace();
 			}
 			//System.out.println(tabPane.getTabs().get(tabPane.getSelectionModel().getSelectedIndex()).getContent());
+			 */
+		});
+		
+		copy.setOnAction(e->{
+			Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
+			clpbrd.setContents(new StringSelection(tabPane.getTabs().get(tabPane.getSelectionModel().getSelectedIndex()).getContent().toString()), null);
 		});
 		
 		MenuItem close = new MenuItem("Close");
